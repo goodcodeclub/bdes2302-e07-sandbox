@@ -1,6 +1,6 @@
 import { THREE, scene } from './1-scene.js';
 
-// 1 (continued). Add primitives to the existing scene.
+// 2. Add primitives to the existing scene.
 const cube = new THREE.Mesh(
   new THREE.BoxGeometry(1.2, 1.2, 1.2),
   new THREE.MeshStandardMaterial({ color: '#fb927e', roughness: 1 }),

@@ -1,8 +1,8 @@
 import { THREE, camera, focus, updates, controls } from './1-scene.js';
-import { tracking, recenter, values } from './3-landmarks.js';
+import { tracking, recenter, values } from './5-landmarks.js';
 
-// 4. Convert face landmarks into camera position and roll.
-document.getElementById('instructions').textContent = 'Move sideways to orbit (a half-frame shift turns 180° at 1×). Lean to zoom; tilt to roll. Without tracking, drag to orbit.';
+// 6. Convert face landmarks into camera position and roll.
+document.getElementById('instructions').textContent = 'Move sideways to orbit (a half-frame shift turns 180° at 1×). Lean to zoom; tilt to roll. Without tracking, drag to orbit; right-drag to pan.';
 recenter.hidden = false;
 const cameraMapping = { gain: 1 };
 const orbit = { yaw: 0, pitch: 0, radius: 6 };
@@ -15,10 +15,11 @@ function updateCamera(delta) {
   const { points, aspect, active } = tracking;
   controls.enabled = !active;
   if (!active) {
+    if (wasActive) controls.target.copy(focus);
     baseline = face = null;
     cameraRoll = targetRoll = 0;
     wasActive = false;
-    values.value = 'Drag to orbit / scroll to zoom. Enable webcam for head-controlled orbit.';
+    values.value = 'Drag to orbit / right-drag to pan / scroll to zoom.';
     return;
   }
   if (!wasActive) {

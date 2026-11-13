@@ -1,8 +1,8 @@
-import { THREE, scene, focus, updates } from './1-scene.js';
+import { THREE, scene, focus, updates, controls } from './1-scene.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
-// 2. Add a GLB in the middle; the primitives and render loop stay unchanged.
+// 3. Add a GLB in the middle; the primitives and render loop stay unchanged.
 const credit = document.createElement('p');
 credit.className = 'fixed bottom-4 left-4 text-xs text-slate-400';
 credit.innerHTML = '<a href="https://sketchfab.com/models/94b24a60dc1b48248de50bf087c0f042">Littlest Tokyo by glenatron</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>';
@@ -24,6 +24,7 @@ async function loadModel() {
   model.position.set(-center.x, -1 - bounds.min.y, -center.z);
   scene.add(model);
   bounds.setFromObject(model).getCenter(focus);
+  controls.target.copy(focus);
   const mixer = new THREE.AnimationMixer(model);
   gltf.animations.forEach((clip) => mixer.clipAction(clip).play());
   updates.push((delta) => mixer.update(delta));

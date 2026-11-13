@@ -1,8 +1,8 @@
 import { THREE, updates } from './1-scene.js';
-import { tracking } from './3-landmarks.js';
-import { cameraMapping, updateCamera } from './4-camera.js';
+import { tracking } from './5-landmarks.js';
+import { cameraMapping, updateCamera } from './6-camera.js';
 
-// 5. Optional thumb/index spacing multiplies the face-to-camera mapping.
+// 7. Optional thumb/index spacing multiplies the face-to-camera mapping.
 const hint = document.createElement('p');
 hint.className = 'mt-2 text-xs text-teal-200';
 hint.innerHTML = 'Spread thumb + index for 1–4× amplification (no hand = 1×): <output>1.0×</output>';

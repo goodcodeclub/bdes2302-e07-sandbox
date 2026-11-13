@@ -13,6 +13,10 @@ renderer.domElement.setAttribute('aria-label', 'Full-screen 3D scene');
 renderer.domElement.style.cssText = 'position:fixed;inset:0;display:block';
 document.body.style.margin = '0';
 document.body.append(renderer.domElement);
+const rendering = {
+  render: () => renderer.render(scene, camera),
+  resize: () => {},
+};
 
 scene.add(new THREE.HemisphereLight(0xffffff, 0x334155, 3));
 const light = new THREE.DirectionalLight(0xffffff, 3);
@@ -23,6 +27,7 @@ function resize() {
   renderer.setSize(innerWidth, innerHeight);
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
+  rendering.resize(innerWidth, innerHeight);
 }
 window.addEventListener('resize', resize);
 resize();
@@ -31,18 +36,15 @@ resize();
 const updates = [];
 const focus = new THREE.Vector3();
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.enablePan = false;
+controls.enablePan = true;
 controls.minDistance = 2;
 controls.maxDistance = 12;
 const clock = new THREE.Clock();
 renderer.setAnimationLoop((now) => {
   const delta = Math.min(clock.getDelta(), 0.1);
   for (const update of updates) update(delta, now);
-  if (controls.enabled) {
-    controls.target.copy(focus);
-    controls.update();
-  }
-  renderer.render(scene, camera);
+  if (controls.enabled) controls.update();
+  rendering.render(delta);
 });
 
-export { THREE, scene, camera, renderer, focus, updates, controls };
+export { THREE, scene, camera, renderer, focus, updates, controls, rendering };

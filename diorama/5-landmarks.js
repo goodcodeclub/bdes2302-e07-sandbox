@@ -1,6 +1,6 @@
 import { updates } from './1-scene.js';
 
-// 3. Create the interface and draw landmarks. Do not move the camera yet.
+// 5. Create the interface and draw landmarks. Do not move the camera yet.
 const panel = document.createElement('main');
 panel.className = 'fixed left-4 top-4 right-4 max-w-sm rounded-xl bg-slate-950/80 p-4 font-sans text-white backdrop-blur';
 panel.innerHTML = `
@@ -29,7 +29,7 @@ const status = document.getElementById('status');
 const recenter = document.getElementById('recenter');
 const values = document.getElementById('values');
 
-// Step 4 reads this raw data, keeping detection separate from camera math.
+// Step 6 reads this raw data, keeping detection separate from camera math.
 const tracking = { points: null, hand: null, aspect: 1, active: false };
 let tracker, hands, stream;
 let lastVideoTime = -1, lastDetection = 0, closed = false;
